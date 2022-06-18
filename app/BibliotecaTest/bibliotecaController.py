@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, jsonify
 import firebase_admin
 from firebase_admin import credentials, firestore
 
@@ -10,12 +10,20 @@ db = firestore.client()
 
 @biblioteca_routes.route('/biblioteca/insert')
 def test():
-    db.collection('traduccion').add({
-        'email': 'marcosvaldez@gmail.com',
-        'idm_origen': 'eng',
-        'idm_traduc': 'esp',
-        'txt_origen': 'Dog',
-        'txt_traduc': 'Perro',
-        'imagen': 'link'
-    })
-    return "Traduccion insertada"
+    try:
+        db.collection('traduccion').add({
+            'email': 'nuevocorreo@gmail.com',
+            'idm_origen': 'eng',
+            'idm_traduc': 'esp',
+            'txt_origen': 'Test',
+            'txt_traduc': 'Prueba',
+            'imagen': 'http://'
+        })
+    except Exception as e:
+        print(f'Exception: {e}')
+
+    return jsonify({'msg': 'Insertado en Biblioteca'})
+
+@biblioteca_routes.route('/biblioteca/listar')
+def list():
+    return [doc.to_dict() for doc in db.collection('traduccion').stream()]
