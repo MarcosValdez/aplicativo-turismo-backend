@@ -1,3 +1,4 @@
+
 from BibliotecaTest.bibliotecaController import biblioteca_routes
 from flask import Flask, render_template
 
@@ -11,7 +12,6 @@ def home():
 @app.route("/login")
 def login():
     return render_template('login.html')
-
 
 if __name__ == '__main__':
     app.run(debug=True, port = 4000)

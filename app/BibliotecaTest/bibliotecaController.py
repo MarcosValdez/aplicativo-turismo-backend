@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, render_template
 import firebase_admin
 from firebase_admin import credentials, firestore
 
@@ -27,3 +27,8 @@ def test():
 @biblioteca_routes.route('/biblioteca/listar')
 def list():
     return [doc.to_dict() for doc in db.collection('traduccion').stream()]
+
+@biblioteca_routes.route("/biblioteca/dashboard")
+def dashboard():
+    datos = list
+    return render_template('dashboard.html', datos=datos)
