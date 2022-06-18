@@ -30,5 +30,5 @@ def list():
 
 @biblioteca_routes.route("/biblioteca/dashboard")
 def dashboard():
-    datos = list
+    datos = list()
     return render_template('dashboard.html', datos=datos)

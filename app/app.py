@@ -1,5 +1,5 @@
 
-from BibliotecaTest.bibliotecaController import biblioteca_routes
+from Routes.bibliotecaRoutes import biblioteca_routes
 from flask import Flask, render_template
 
 app = Flask(__name__)
