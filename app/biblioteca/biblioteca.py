@@ -7,14 +7,17 @@ class biblioteca():
     def test(self, db):
         try:
             db.collection('traduccion').add({
-                'email': 'ortegachavez@gmail.com',
+                'email': 'nuevocorreo@gmail.com',
                 'idm_origen': 'eng',
                 'idm_traduc': 'esp',
-                'txt_origen': 'Hello',
-                'txt_traduc': 'Hola',
-                'imagen': 'link'
+                'txt_origen': 'texto',
+                'txt_traduc': 'text',
+                'imagen': 'http://'
             })
         except Exception as e: 
             print(f'Exception: {e}')
 
         return "Traducción insertada"
+    
+    def list(self, db):
+        return [doc.to_dict() for doc in db.collection('traduccion').stream()]
