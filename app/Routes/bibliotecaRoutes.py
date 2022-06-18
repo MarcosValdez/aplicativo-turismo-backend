@@ -11,24 +11,32 @@ db = firestore.client()
 @biblioteca_routes.route('/biblioteca/insert')
 def test():
     try:
-        db.collection('traduccion').add({
+        nuevo = {
             'email': 'nuevocorreo@gmail.com',
             'idm_origen': 'eng',
             'idm_traduc': 'esp',
             'txt_origen': 'Test',
             'txt_traduc': 'Prueba',
             'imagen': 'http://'
-        })
+        }
+        db.collection('traduccion').add(nuevo)
     except Exception as e:
         print(f'Exception: {e}')
 
-    return jsonify({'msg': 'Insertado en Biblioteca'})
+    return jsonify({
+        'msg': 'Insertado en Biblioteca',
+        'note': nuevo
+    })
 
 @biblioteca_routes.route('/biblioteca/listar')
 def list():
-    return [doc.to_dict() for doc in db.collection('traduccion').stream()]
-
+    lista = []
+    datos = db.collection('traduccion').stream()
+    for doc in datos:
+        nuevo = doc.to_dict()
+        lista.append(nuevo)
+    return jsonify(lista)
 @biblioteca_routes.route("/biblioteca/dashboard")
 def dashboard():
-    datos = list()
+    datos = [doc.to_dict() for doc in db.collection('traduccion').stream()]
     return render_template('dashboard.html', datos=datos)
