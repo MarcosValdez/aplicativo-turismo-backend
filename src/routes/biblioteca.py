@@ -6,6 +6,7 @@ biblioteca_routes = Blueprint('biblioteca_routes', __name__)
 
 db = connect_database()
 
+
 @biblioteca_routes.route('/insert')
 def test():
     try:
@@ -25,6 +26,7 @@ def test():
         'msg': 'Insertado en Biblioteca',
         'note': nuevo
     })
+
 
 @biblioteca_routes.route('/listar')
 def list():
