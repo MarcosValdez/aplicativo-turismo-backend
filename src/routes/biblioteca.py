@@ -9,7 +9,7 @@ biblioteca_routes = Blueprint('biblioteca_routes', __name__)
 
 db = connect_database()
 
-@biblioteca_routes.route('/biblioteca/insert', methods=['POST'])
+@biblioteca_routes.route('insert', methods=['POST'])
 def insert():
     try:
         data = request.json
@@ -31,7 +31,7 @@ def insert():
             'error': f'Exception: {e}'
         }), 400
 
-@biblioteca_routes.route('/biblioteca/listarEmail', methods=['POST'])
+@biblioteca_routes.route('listarEmail', methods=['POST'])
 def getBilbliotecaEmail():
     lista = []
     data = request.json
@@ -58,7 +58,7 @@ def list():
         lista.append(nuevo)
     return jsonify(lista), 200
 
-@biblioteca_routes.route('/biblioteca/delete', methods=['DELETE'])
+@biblioteca_routes.route('/delete', methods=['DELETE'])
 def delete():
     try:
         data = request.json
@@ -80,7 +80,7 @@ def delete():
             'error': f'Exception: {e}'
         }), 400
 
-@biblioteca_routes.route('/biblioteca/update', methods=['POST'])
+@biblioteca_routes.route('/update', methods=['POST'])
 def update():
     try:
         data = request.json
@@ -109,7 +109,7 @@ def update():
             'error': f'Exception: {e}'
         }), 400
 
-@biblioteca_routes.route("/biblioteca/dashboard")
+@biblioteca_routes.route("/dashboard")
 def dashboard():
     datos = [doc.to_dict() for doc in db.collection('traduccion').stream()]
     return render_template('dashboard.html', datos=datos)
