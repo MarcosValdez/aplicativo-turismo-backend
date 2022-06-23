@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, render_template
 
-from app.utils import connect_database
+from src.utils import connect_database
 
 biblioteca_routes = Blueprint('biblioteca_routes', __name__)
 
