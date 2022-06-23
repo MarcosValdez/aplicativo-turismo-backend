@@ -15,11 +15,6 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## Cambiar directorio de la aplicación
-```
-cd app
-```
-
 ## Aplicación en debug off
 ```
 flask run

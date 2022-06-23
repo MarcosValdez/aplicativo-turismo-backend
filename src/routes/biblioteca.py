@@ -1,12 +1,13 @@
-from flask import Blueprint, jsonify, render_template,  redirect, url_for, request, Response
 import firebase_admin
 from firebase_admin import credentials, firestore
 
+from flask import Blueprint, jsonify, render_template, request
+
+from src.utils import connect_database
+
 biblioteca_routes = Blueprint('biblioteca_routes', __name__)
 
-cred = credentials.Certificate("serviceAccountKey.json")
-firebase_admin.initialize_app(cred)
-db = firestore.client()
+db = connect_database()
 
 @biblioteca_routes.route('/biblioteca/insert', methods=['POST'])
 def insert():
@@ -46,7 +47,8 @@ def getBilbliotecaEmail():
     else:
         return jsonify(lista), 200
 
-@biblioteca_routes.route('/biblioteca/listar')
+
+@biblioteca_routes.route('/listar')
 def list():
     lista = []
     datos = db.collection('traduccion').stream()
@@ -111,3 +113,4 @@ def update():
 def dashboard():
     datos = [doc.to_dict() for doc in db.collection('traduccion').stream()]
     return render_template('dashboard.html', datos=datos)
+
