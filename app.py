@@ -1,16 +1,9 @@
-from Routes.bibliotecaRoutes import biblioteca_routes
-from flask import Flask, render_template
 
-app = Flask(__name__)
-app.register_blueprint(biblioteca_routes)
+from app import create_app
 
-@app.route("/")
-def home():
-    return render_template('home.html')
+from app import create_app
 
-@app.route("/login")
-def login():
-    return render_template('login.html')
+app = create_app()
 
 if __name__ == '__main__':
     app.run(debug=True, port = 4000)

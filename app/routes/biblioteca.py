@@ -1,14 +1,12 @@
 from flask import Blueprint, jsonify, render_template
-import firebase_admin
-from firebase_admin import credentials, firestore
+
+from app.utils import connect_database
 
 biblioteca_routes = Blueprint('biblioteca_routes', __name__)
 
-cred = credentials.Certificate("serviceAccountKey.json")
-firebase_admin.initialize_app(cred)
-db = firestore.client()
+db = connect_database()
 
-@biblioteca_routes.route('/biblioteca/insert')
+@biblioteca_routes.route('/insert')
 def test():
     try:
         nuevo = {
@@ -28,7 +26,7 @@ def test():
         'note': nuevo
     })
 
-@biblioteca_routes.route('/biblioteca/listar')
+@biblioteca_routes.route('/listar')
 def list():
     lista = []
     datos = db.collection('traduccion').stream()
@@ -36,8 +34,3 @@ def list():
         nuevo = doc.to_dict()
         lista.append(nuevo)
     return jsonify(lista)
-
-@biblioteca_routes.route("/dashboard")
-def dashboard():
-    datos = [doc.to_dict() for doc in db.collection('traduccion').stream()]
-    return render_template('dashboard.html', datos=datos)
