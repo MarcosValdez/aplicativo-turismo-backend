@@ -36,7 +36,8 @@ def list():
         nuevo = doc.to_dict()
         lista.append(nuevo)
     return jsonify(lista)
-@biblioteca_routes.route("/biblioteca/dashboard")
+
+@biblioteca_routes.route("/dashboard")
 def dashboard():
     datos = [doc.to_dict() for doc in db.collection('traduccion').stream()]
     return render_template('dashboard.html', datos=datos)
