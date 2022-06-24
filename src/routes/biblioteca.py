@@ -48,6 +48,29 @@ def getBilbliotecaEmail():
         return jsonify(lista), 200
 
 
+@biblioteca_routes.route('/listar-continentes')
+def listContinente():
+    continentes = []
+    datos = db.collection('continente').stream()
+    for doc in datos:
+        nuevo = doc.to_dict()
+        nuevo['doc_id'] = doc.id
+        continentes.append(nuevo)
+    return jsonify(continentes), 200
+
+@biblioteca_routes.route('/listar-paises/<string:continente>')
+def listPaises(continente):
+    print(continente)
+    paises = []
+    ##datos = db.collection('continente').stream()
+    datos = db.collection('pais')
+    datos_paises = datos.where('continente','==',continente).stream()
+    for doc in datos_paises:
+        nuevo = doc.to_dict()
+        nuevo['doc_id'] = doc.id
+        paises.append(nuevo)
+    return jsonify(paises), 200
+
 @biblioteca_routes.route('/listar')
 def list():
     lista = []
