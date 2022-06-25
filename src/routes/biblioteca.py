@@ -1,6 +1,6 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
-
+from flask_cors import cross_origin
 from flask import Blueprint, jsonify, render_template, request
 
 from src.utils import connect_database
@@ -47,7 +47,7 @@ def getBilbliotecaEmail():
     else:
         return jsonify(lista), 200
 
-
+@cross_origin
 @biblioteca_routes.route('/listar-continentes')
 def listContinente():
     continentes = []
@@ -58,14 +58,25 @@ def listContinente():
         continentes.append(nuevo)
     return jsonify(continentes), 200
 
+@cross_origin
 @biblioteca_routes.route('/listar-paises/<string:continente>')
 def listPaises(continente):
-    print(continente)
     paises = []
     ##datos = db.collection('continente').stream()
     datos = db.collection('pais')
-    datos_paises = datos.where('continente','==',continente).stream()
+    datos_paises = datos.where('codigo','==',continente).stream()
     for doc in datos_paises:
+        nuevo = doc.to_dict()
+        nuevo['doc_id'] = doc.id
+        paises.append(nuevo)
+    return jsonify(paises), 200
+
+@cross_origin
+@biblioteca_routes.route('/listar-todos-paises')
+def listTodosPaises():
+    paises = []
+    datos = db.collection('pais').stream()
+    for doc in datos:
         nuevo = doc.to_dict()
         nuevo['doc_id'] = doc.id
         paises.append(nuevo)
