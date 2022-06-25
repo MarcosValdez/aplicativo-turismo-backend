@@ -1,5 +1,3 @@
-import firebase_admin
-from firebase_admin import credentials, firestore
 from flask_cors import cross_origin
 from flask import Blueprint, jsonify, render_template, request
 
@@ -8,6 +6,7 @@ from src.utils import connect_database
 biblioteca_routes = Blueprint('biblioteca_routes', __name__)
 
 db = connect_database()
+
 
 @biblioteca_routes.route('insert', methods=['POST'])
 def insert():
@@ -31,11 +30,13 @@ def insert():
             'error': f'Exception: {e}'
         }), 400
 
+
 @biblioteca_routes.route('listarEmail', methods=['POST'])
 def getBilbliotecaEmail():
     lista = []
     data = request.json
-    datos = db.collection('traduccion').where('email', "==", data['email']).stream()
+    datos = db.collection('traduccion').where(
+        'email', "==", data['email']).stream()
     for doc in datos:
         nuevo = doc.to_dict()
         nuevo['doc_id'] = doc.id
@@ -46,6 +47,7 @@ def getBilbliotecaEmail():
         }), 404
     else:
         return jsonify(lista), 200
+
 
 @cross_origin
 @biblioteca_routes.route('/listar-continentes')
@@ -58,18 +60,20 @@ def listContinente():
         continentes.append(nuevo)
     return jsonify(continentes), 200
 
+
 @cross_origin
 @biblioteca_routes.route('/listar-paises/<string:continente>')
 def listPaises(continente):
     paises = []
     ##datos = db.collection('continente').stream()
     datos = db.collection('pais')
-    datos_paises = datos.where('codigo','==',continente).stream()
+    datos_paises = datos.where('codigo', '==', continente).stream()
     for doc in datos_paises:
         nuevo = doc.to_dict()
         nuevo['doc_id'] = doc.id
         paises.append(nuevo)
     return jsonify(paises), 200
+
 
 @cross_origin
 @biblioteca_routes.route('/listar-todos-paises')
@@ -82,6 +86,7 @@ def listTodosPaises():
         paises.append(nuevo)
     return jsonify(paises), 200
 
+
 @biblioteca_routes.route('/listar')
 def list():
     lista = []
@@ -91,6 +96,7 @@ def list():
         nuevo['doc_id'] = doc.id
         lista.append(nuevo)
     return jsonify(lista), 200
+
 
 @biblioteca_routes.route('/delete', methods=['DELETE'])
 def delete():
@@ -113,6 +119,7 @@ def delete():
         return jsonify({
             'error': f'Exception: {e}'
         }), 400
+
 
 @biblioteca_routes.route('/update', methods=['POST'])
 def update():
@@ -142,9 +149,3 @@ def update():
         return jsonify({
             'error': f'Exception: {e}'
         }), 400
-
-@biblioteca_routes.route("/dashboard")
-def dashboard():
-    datos = [doc.to_dict() for doc in db.collection('traduccion').stream()]
-    return render_template('dashboard.html', datos=datos)
-
