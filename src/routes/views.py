@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 
-from src.utils import connect_database
+from src.utils.db import connect_database
 
 views = Blueprint('views', __name__)
 

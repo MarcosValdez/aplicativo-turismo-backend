@@ -1,7 +1,7 @@
 from flask_cors import cross_origin
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, jsonify, request
 
-from src.utils import connect_database
+from src.utils.db import connect_database
 
 biblioteca_routes = Blueprint('biblioteca_routes', __name__)
 
