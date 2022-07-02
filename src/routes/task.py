@@ -8,7 +8,7 @@ task = Blueprint('task', __name__)
 
 db = connect_database()
 
-
+@cross_origin
 @task.route('/', methods=['POST'])
 def insert():
     try:
