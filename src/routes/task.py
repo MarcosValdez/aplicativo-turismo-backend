@@ -85,9 +85,20 @@ def update():
 
 @task.route('/<string:task_id>', methods=['DELETE'])
 def delete(task_id):
-    docs = db.collection('task').where('task_id', '==', task_id).stream()
-    eliminados = 0
-    for doc in docs:
-        doc.reference.delete()
-        eliminados += 1
-    return jsonify(eliminados), 200
+    try:
+        document = db.collection('task').document(task_id)
+        doc = document.get()
+        if doc.exists:
+            document.delete()
+            return jsonify({
+                'msg': 'Tarea eliminada',
+                'doc': doc.to_dict()
+            }), 200
+        else:
+            return jsonify({
+                'error': 'El documento no existe'
+            }), 400
+    except Exception as e:
+        return jsonify({
+            'error': f'Exception: {e}'
+        }), 400
