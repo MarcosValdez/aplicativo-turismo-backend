@@ -37,7 +37,7 @@ def insert():
         data = request.json
         nuevo = {
             'task_id': uuid.uuid4().hex,
-            'user_id': data['user'],
+            'user_id': data['user_id'],
             'description': data['description'],
             'date': data['date'],
             'date_created': datetime.today(),
