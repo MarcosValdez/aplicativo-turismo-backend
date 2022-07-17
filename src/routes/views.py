@@ -19,4 +19,4 @@ def login():
 
 @views.route("/dashboard")
 def dashboard():
-    return render_template('dashboard.html', datos=[doc.to_dict() for doc in db.collection('traduccion').stream()])
+    return render_template('dashboard.html', datos=[doc.to_dict() for doc in db.collection('task').stream()])
