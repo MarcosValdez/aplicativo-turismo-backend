@@ -1,3 +1,4 @@
+--extra-index-url https://download.pytorch.org/whl/lts/1.8/cpu
 autopep8==1.6.0
 CacheControl==0.12.11
 cachetools==5.2.0

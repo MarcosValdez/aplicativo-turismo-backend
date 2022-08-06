@@ -20,3 +20,7 @@ def login():
 @views.route("/dashboard")
 def dashboard():
     return render_template('dashboard.html', datos=[doc.to_dict() for doc in db.collection('traduccion').stream()])
+
+@views.route("/conteo")
+def conteo():
+    return render_template('conteo.html', datos=[doc.to_dict() for doc in db.collection('conteo_ingles').stream()])
