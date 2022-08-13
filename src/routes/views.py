@@ -22,5 +22,5 @@ def dashboard():
     return render_template('dashboard.html', datos=[doc.to_dict() for doc in db.collection('traduccion').stream()])
 
 @views.route("/conteo")
-def conteo():
-    return render_template('conteo.html', datos=[doc.to_dict() for doc in db.collection('conteo_ingles').stream()])
+def conteoingles():
+    return render_template('conteo.html', datosespanol=[doc.to_dict() for doc in db.collection('conteo_espanol').stream()], datosingles=[doc.to_dict() for doc in db.collection('conteo_ingles').stream()])

@@ -1,42 +1,96 @@
 {% extends "base.html" %} {% block title %}Dashboard{% endblock %} {% block
-    content %}
-    <div class="container my-5">
-      <h1>Palabras mas frecuentes</h1>
-      <table class="table table-dark table-hover">
-        <thead>
-          <th>Palabra</th>
-          <th>Frecuencia</th>
+content %}
+<div class="container my-5">
+  <h1>Palabras mas frecuentes</h1>
+  <table class="table table-hover">
+    <tr>
+      <td>
+        <table class="table">
+          <thead>
+            <th>Palabra en español</th>
+            <th>Frecuencia(es)</th>
 
-        </thead>
-        <tbody>
-          {%for i in datos%}
-          <tr>
-            <td>{{i.palabra}}</td>
-            <td>{{i.frecuencia}}</td>
-          </tr>
-          {%endfor%}
-        </tbody>
-      </table>
-    
-      <nav aria-label="navigation">
-        <ul class="pagination justify-content-center">
-          <li class="page-item disabled">
-            <a class="page-link">Previous</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link bg-dark text-white" href="#">1</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link bg-dark text-white" href="#">2</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link bg-dark text-white" href="#">3</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#">Next</a>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    {% endblock %}
-    
+          </thead>
+          <tbody>
+            {%for a in datosespanol%}
+            <tr>
+              <td>{{a.palabra}}</td>
+              <td>{{a.frecuencia}}</td>
+            </tr>
+            {%endfor%}
+          </tbody>
+        </table>
+      </td>
+      <td>
+        <table class="table">
+          <thead>
+            <th>Palabra en ingles</th>
+            <th>Frecuencia(en)</th>
+
+          </thead>
+          <tbody>
+            {%for i in datosingles%}
+            <tr>
+              <td>{{i.palabra}}</td>
+              <td>{{i.frecuencia}}</td>
+            </tr>
+            {%endfor%}
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </table>
+<!--   <table class="table table-dark table-hover">
+    <thead>
+      <th>Palabra</th>
+      <th>Frecuencia</th>
+
+    </thead>
+    <tbody>
+      {%for i in datos%}
+      <tr>
+        <td>{{i.palabra}}</td>
+        <td>{{i.frecuencia}}</td>
+      </tr>
+      {%endfor%}
+    </tbody>
+
+  </table>
+  <table class="table table-dark table-hover">
+    <thead>
+      <th>Palabra</th>
+      <th>Frecuencia</th>
+
+    </thead>
+    <tbody>
+      {%for i in datos%}
+      <tr>
+        <td>{{i.palabra}}</td>
+        <td>{{i.frecuencia}}</td>
+      </tr>
+      {%endfor%}
+    </tbody>
+
+  </table> -->
+
+  <nav aria-label="navigation">
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled">
+        <a class="page-link">Previous</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link bg-dark text-white" href="#">1</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link bg-dark text-white" href="#">2</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link bg-dark text-white" href="#">3</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#">Next</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+{% endblock %}
