@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Blueprint, render_template
 
 from src.utils.db import connect_database
@@ -19,4 +20,12 @@ def login():
 
 @views.route("/dashboard")
 def dashboard():
-    return render_template('dashboard.html', datos=[doc.to_dict() for doc in db.collection('task').stream()])
+    datos = []
+    for doc in db.collection('task').stream():
+        new_elem = doc.to_dict()
+        # dt_obj = datetime.strptime(,
+                                #    "%Y-%m-%d %H:%M:%S.%f")
+        print(new_elem['date_created'].timestamp())
+        # new_elem['date_created'] = datetime.datetime.strptime(new_elem['date_created'], '%Y/%m/%d')
+        datos.append(new_elem)
+    return render_template('dashboard.html', datos=datos)
