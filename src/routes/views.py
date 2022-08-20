@@ -20,12 +20,8 @@ def login():
 
 @views.route("/dashboard")
 def dashboard():
-    datos = []
-    for doc in db.collection('task').stream():
-        new_elem = doc.to_dict()
-        # dt_obj = datetime.strptime(,
-                                #    "%Y-%m-%d %H:%M:%S.%f")
-        print(new_elem['date_created'].timestamp())
-        # new_elem['date_created'] = datetime.datetime.strptime(new_elem['date_created'], '%Y/%m/%d')
-        datos.append(new_elem)
-    return render_template('dashboard.html', datos=datos)
+    return render_template('dashboard.html', datos=[doc.to_dict() for doc in db.collection('traduccion').stream()])
+
+@views.route("/conteo")
+def conteoingles():
+    return render_template('conteo.html', datosespanol=[doc.to_dict() for doc in db.collection('conteo_espanol').stream()], datosingles=[doc.to_dict() for doc in db.collection('conteo_ingles').stream()])
