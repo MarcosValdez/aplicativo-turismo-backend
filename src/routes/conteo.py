@@ -57,10 +57,13 @@ def contar_palabras_espanol(sentence):
 def contar(sentence):
     quitar = ".,;:!\"'%"
     for caracter in quitar:
-        sentence = sentence.replace(caracter,"")
+        if caracter == "\n" :
+            sentence = sentence.replace(caracter," ")
+        else:
+            sentence = sentence.replace(caracter,"")
 
     sentence = sentence.lower()
-    palabras = sentence.strip('\n').split(" ")
+    palabras = sentence.split(" ")
 
     diccionario_frecuencias = {}
     for palabra in palabras:
