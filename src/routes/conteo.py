@@ -60,8 +60,7 @@ def contar(sentence):
         sentence = sentence.replace(caracter,"")
 
     sentence = sentence.lower()
-    palabras = sentence.split(" ")
-    palabras = sentence.split("\n")
+    palabras = sentence.strip('\n').split(" ")
 
     diccionario_frecuencias = {}
     for palabra in palabras:
