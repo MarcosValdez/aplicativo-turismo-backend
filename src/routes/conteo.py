@@ -35,7 +35,8 @@ def contar_palabras_ingles(sentence):
 @conteo.route("/contar_espanol/<string:sentence>",methods=['POST'])
 def contar_palabras_espanol(sentence):
     
-    diccionario_frecuencias = contar(sentence)
+    data = request.json
+    diccionario_frecuencias = contar(data['palabra'])
 
     for palabra in diccionario_frecuencias:
         nuevo = {
