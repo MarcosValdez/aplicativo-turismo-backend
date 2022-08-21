@@ -6,10 +6,11 @@ conteo = Blueprint('conteo', __name__)
 db = connect_database()
 
 @cross_origin
-@conteo.route("/contar_ingles/<string:sentence>")
+@conteo.route("/contar_ingles/<string:sentence>",methods=['POST'])
 def contar_palabras_ingles(sentence):
     try:
-        diccionario_frecuencias = contar(sentence)
+        data = request.json
+        diccionario_frecuencias = contar(data['palabra'])
         for palabra in diccionario_frecuencias:
             nuevo = {
                 'palabra': palabra,
@@ -31,7 +32,7 @@ def contar_palabras_ingles(sentence):
         }), 400
 
 @cross_origin
-@conteo.route("/contar_espanol/<string:sentence>")
+@conteo.route("/contar_espanol/<string:sentence>",methods=['POST'])
 def contar_palabras_espanol(sentence):
     
     diccionario_frecuencias = contar(sentence)
@@ -53,7 +54,7 @@ def contar_palabras_espanol(sentence):
     return jsonify("Exito"), 200
 
 def contar(sentence):
-    quitar = ".,;:\n!\"'"
+    quitar = ".,;:\n!\"'%"
     for caracter in quitar:
         sentence = sentence.replace(caracter,"")
 
