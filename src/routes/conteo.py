@@ -55,7 +55,7 @@ def contar_palabras_espanol(sentence):
     return jsonify("Exito"), 200
 
 def contar(sentence):
-    quitar = ".,;:\n!\"'%"
+    quitar = ".,;:!\"'%"
     for caracter in quitar:
         sentence = sentence.replace(caracter,"")
 
