@@ -12,7 +12,7 @@ def create_app():
     app = Flask(__name__,instance_relative_config=False)
     CORS(app)
     with app.app_context():
-        from .prueba import init_dashboard
+        from .dash import init_dashboard
 
         app = init_dashboard(app)
     
