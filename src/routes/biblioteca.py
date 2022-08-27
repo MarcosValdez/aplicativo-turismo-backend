@@ -74,6 +74,19 @@ def listPaises(continente):
         paises.append(nuevo)
     return jsonify(paises), 200
 
+@cross_origin
+@biblioteca_routes.route('/listar-cultura/<string:pais>')
+def listCultura(pais):
+    paises = []
+    ##datos = db.collection('continente').stream()
+    datos = db.collection('cultura')
+    datos_paises = datos.where('pais', '==', pais).stream()
+    for doc in datos_paises:
+        nuevo = doc.to_dict()
+        nuevo['doc_id'] = doc.id
+        paises.append(nuevo)
+    return jsonify(paises), 200
+
 
 @cross_origin
 @biblioteca_routes.route('/listar-todos-paises')
